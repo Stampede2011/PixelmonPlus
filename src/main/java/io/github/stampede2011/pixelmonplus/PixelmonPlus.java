@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import io.github.stampede2011.pixelmonplus.commands.Base;
 import io.github.stampede2011.pixelmonplus.commands.ClaimCosmetics;
 import io.github.stampede2011.pixelmonplus.config.ConfigManager;
-import io.github.stampede2011.pixelmonplus.events.LevelUp;
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
 import net.minecraftforge.common.MinecraftForge;
 import org.slf4j.Logger;
@@ -55,8 +54,6 @@ public class PixelmonPlus {
         PixelmonPlus.getLogger().info(String.valueOf(dir));
 
         ConfigManager.init();
-
-        MinecraftForge.EVENT_BUS.register(new LevelUp());
     }
 
     @Listener
