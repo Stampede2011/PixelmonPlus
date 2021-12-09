@@ -45,19 +45,13 @@ public class ConfigManager {
         try {
             popupsConfig = HoconConfigurationLoader.builder()
                     .setPath(Paths.get(plugin.dir + File.separator +  "popups.conf"))
-                    .build()
-                    .load()
-                    .getValue(TypeToken.of(ConfigPopups.class));
+                    .build().load().getValue(TypeToken.of(ConfigPopups.class));
             cosmeticsConfig = HoconConfigurationLoader.builder()
                     .setPath(Paths.get(plugin.dir + File.separator +  "cosmetics.conf"))
-                    .build()
-                    .load()
-                    .getValue(TypeToken.of(ConfigCosmetics.class));
+                    .build().load().getValue(TypeToken.of(ConfigCosmetics.class));
             capesConfig = HoconConfigurationLoader.builder()
                     .setPath(Paths.get(plugin.dir + File.separator +  "capes.conf"))
-                    .build()
-                    .load()
-                    .getValue(TypeToken.of(ConfigCapes.class));
+                    .build().load().getValue(TypeToken.of(ConfigCapes.class));
         } catch (IOException | ObjectMappingException exception){
             PixelmonPlus.getLogger().error("An error occurred while loading the configuration files!");
             PixelmonPlus.getLogger().error(String.valueOf(exception));

@@ -28,6 +28,7 @@ public class Popup implements CommandExecutor {
         Optional<String> all = args.getOne(Text.of("all"));
 
         String popupID = args.<String>getOne(Text.of("popup-id")).get();
+        Optional<String> message = args.getOne(Text.of("message"));
 
         if (ConfigManager.getPopupsConfig().popups.containsKey(popupID)) {
 
@@ -39,7 +40,7 @@ public class Popup implements CommandExecutor {
                         popup.textureId,
                         popup.width,
                         popup.height,
-                        popup.text,
+                        message.orElse(popup.text),
                         popup.textColor,
                         popup.textOutline,
                         popup.textOffsetX,
@@ -49,19 +50,19 @@ public class Popup implements CommandExecutor {
                 if (all.isPresent()) {
                     for (Player p : Sponge.getServer().getOnlinePlayers()) {
                         Pixelmon.NETWORK.sendTo(enqueuePopup, (EntityPlayerMP) p);
-                        src.sendMessage(Utilities.toText("&aSent the requested Popup to all online players!"));
+                        src.sendMessage(Utilities.toText("&aSuccessfully sent the popup &2" + popupID + " &ato all online players!"));
                     }
                 } else if (player.isPresent()) {
                     Pixelmon.NETWORK.sendTo(enqueuePopup, (EntityPlayerMP) player.get());
-                    src.sendMessage(Utilities.toText("&aSent the requested Popup to " + player.get().getName() + "!"));
+                    src.sendMessage(Utilities.toText("&aSuccessfully sent &2" + player.get().getName() + " &athe popup &2" + popupID + "&a!"));
                 } else {
-                    src.sendMessage(Utilities.toText("&cError while attempting to send Popup!"));
+                    src.sendMessage(Utilities.toText("&cError while attempting to send the popup &4" + popupID + "&c!"));
                 }
 
             }
 
         } else {
-            src.sendMessage(Utilities.toText("&cCould not find that Popup!"));
+            src.sendMessage(Utilities.toText("&cCould not find the &4" + popupID + " &cpopup!"));
         }
 
         return CommandResult.success();
@@ -73,7 +74,8 @@ public class Popup implements CommandExecutor {
                 .executor(new Popup())
                 .arguments(
                         GenericArguments.firstParsing(GenericArguments.literal(Text.of("all"),  "@a"), GenericArguments.player(Text.of("player"))),
-                        GenericArguments.withSuggestions(GenericArguments.string(Text.of("popup-id")), ConfigManager.getPopupsConfig().popups.keySet())
+                        GenericArguments.withSuggestions(GenericArguments.string(Text.of("popup-id")), ConfigManager.getPopupsConfig().popups.keySet()),
+                        GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("message")))
                 )
                 .build();
     }

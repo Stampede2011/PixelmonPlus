@@ -15,38 +15,26 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-public class SetCape implements CommandExecutor {
+public class ClearCape implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 
         Player player = args.<Player>getOne(Text.of("player")).get();
-        String capeID = args.<String>getOne(Text.of("cape-id")).get();
 
-        if (ConfigManager.getCapesConfig().capes.containsKey(capeID)) {
+        EntityPlayerExtension.updatePlayerCape((EntityPlayerMP) player, "");
 
-            ConfigCapes.Cape cape = ConfigManager.getCapesConfig().capes.get(capeID);
-
-            if (cape != null) {
-                EntityPlayerExtension.updatePlayerCape((EntityPlayerMP) player, cape.textureId);
-
-                src.sendMessage(Utilities.toText("&aSuccessfully set &2" + player.getName() + "'s &acape to &2" + capeID + "&a!"));
-            }
-
-        } else {
-            src.sendMessage(Utilities.toText("&cCould not find the &4" + capeID + " &ccape!"));
-        }
+        src.sendMessage(Utilities.toText("&aSuccessfully cleared &2" + player.getName() + "'s &acape!"));
 
         return CommandResult.success();
     }
 
     public static CommandSpec build() {
         return CommandSpec.builder()
-                .permission("pixelmonplus.command.setcape.base")
-                .executor(new SetCape())
+                .permission("pixelmonplus.command.clearcape.base")
+                .executor(new ClearCape())
                 .arguments(
-                        GenericArguments.onlyOne(GenericArguments.player(Utilities.toText("player"))),
-                        GenericArguments.withSuggestions(GenericArguments.string(Utilities.toText("cape-id")), ConfigManager.getCapesConfig().capes.keySet())
+                        GenericArguments.onlyOne(GenericArguments.player(Utilities.toText("player")))
                 )
                 .build();
     }

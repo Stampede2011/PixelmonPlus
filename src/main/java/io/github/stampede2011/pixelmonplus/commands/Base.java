@@ -1,16 +1,15 @@
 package io.github.stampede2011.pixelmonplus.commands;
 
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
-import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.action.TextActions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +21,14 @@ public class Base implements CommandExecutor {
 
         List<Text> content = new ArrayList<>();
 
-        if (src.hasPermission("pixelmonplus.command.reload.base"))
-            content.add(Utilities.toText("&b/pp reload &8- &fReloads the plugin"));
-        if (src.hasPermission("pixelmonplus.command.claimcosmetics.base"))
-            content.add(Utilities.toText("&b/pp claimcosmetics &8- &fClaims all cosmetics you have permission for"));
-        if (src.hasPermission("pixelmonplus.command.givecosmetic.base"))
-            content.add(Utilities.toText("&b/pp givecosmetic &8- &fGive a cosmetic to a player"));
-        if (src.hasPermission("pixelmonplus.command.popup.base"))
-            content.add(Utilities.toText("&b/pp popup &8- &fSend a popup overlay to players"));
-        if (src.hasPermission("pixelmonplus.command.setcape.base"))
-            content.add(Utilities.toText("&b/pp setcape &8- &fSets a players cape texture"));
-        if (src.hasPermission("pixelmonplus.command.setcosmetic.base"))
-            content.add(Utilities.toText("&b/pp setcosmetic &8- &fEquip a specific cosmetic for a player"));
-
-        if (content.isEmpty()) {
-            content.add(Utilities.toText("&cYou do not have permission to use this command!"));
-            return CommandResult.success();
-        }
+        content.add(Utilities.toText("&c/&fpp reload").toBuilder().onClick(TextActions.suggestCommand("/pp reload")).build());
+        content.add(Utilities.toText("&c/&fpp claimcosmetics").toBuilder().onClick(TextActions.suggestCommand("/pp claimcosmetics")).build());
+        content.add(Utilities.toText("&c/&fpp givecosmetic <player> <cosmetic-id>").toBuilder().onClick(TextActions.suggestCommand("/pp givecosmetic")).build());
+        content.add(Utilities.toText("&c/&fpp setcosmetic <player> <cosmetic-id>").toBuilder().onClick(TextActions.suggestCommand("/pp setcosmetic")).build());
+        content.add(Utilities.toText("&c/&fpp clearcosmetic <player> <category>").toBuilder().onClick(TextActions.suggestCommand("/pp clearcosmetic")).build());
+        content.add(Utilities.toText("&c/&fpp popup <player|@a> <popup-id> [message]").toBuilder().onClick(TextActions.suggestCommand("/pp popup")).build());
+        content.add(Utilities.toText("&c/&fpp setcape <player> <cape-id>").toBuilder().onClick(TextActions.suggestCommand("/pp setcape")).build());
+        content.add(Utilities.toText("&c/&fpp clearcape <player>").toBuilder().onClick(TextActions.suggestCommand("/pp clearcape")).build());
 
         PaginationList.builder()
                 .title(Utilities.toText("&cPixelmon&fPlus"))
@@ -59,7 +49,9 @@ public class Base implements CommandExecutor {
                 .child(GiveCosmetic.build(), "givecosmetic", "givecos")
                 .child(SetCosmetic.build(), "setcosmetic", "setcos")
                 .child(ClaimCosmetics.build(), "claimcosmetics", "claimcos")
+                .child(ClearCosmetic.build(), "clearcosmetics", "clearcos")
                 .child(SetCape.build(), "setcape")
+                .child(ClearCape.build(), "clearcape")
                 .build();
     }
 

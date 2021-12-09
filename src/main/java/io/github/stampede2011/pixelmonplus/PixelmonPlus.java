@@ -5,13 +5,11 @@ import io.github.stampede2011.pixelmonplus.commands.Base;
 import io.github.stampede2011.pixelmonplus.commands.ClaimCosmetics;
 import io.github.stampede2011.pixelmonplus.config.ConfigManager;
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
-import net.minecraftforge.common.MinecraftForge;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Dependency;
@@ -20,11 +18,11 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.File;
 
-@Plugin(id = PixelmonPlus.ID,
-        name = PixelmonPlus.NAME,
-        authors = PixelmonPlus.AUTHORS,
-        description = PixelmonPlus.DESCRIPTION,
-        version = PixelmonPlus.VERSION,
+@Plugin(id = io.github.stampede2011.pixelmonplus.PixelmonPlus.ID,
+        name = io.github.stampede2011.pixelmonplus.PixelmonPlus.NAME,
+        authors = io.github.stampede2011.pixelmonplus.PixelmonPlus.AUTHORS,
+        description = io.github.stampede2011.pixelmonplus.PixelmonPlus.DESCRIPTION,
+        version = io.github.stampede2011.pixelmonplus.PixelmonPlus.VERSION,
         dependencies = {@Dependency(id = "pixelmon", optional = false)}
 )
 public class PixelmonPlus {
@@ -32,7 +30,7 @@ public class PixelmonPlus {
     public static final String ID = "pixelmonplus";
     public static final String NAME = "PixelmonPlus";
     public static final String AUTHORS = "Stampede2011";
-    public static final String DESCRIPTION = "Allows for using custom content added by AssetManager!";
+    public static final String DESCRIPTION = "Adds additional content to Pixelmon Generations!";
     public static final String VERSION = "1.0.0";
 
     @Inject
@@ -51,7 +49,7 @@ public class PixelmonPlus {
     public void onGamePreinit(GamePreInitializationEvent e) {
         instance = this;
 
-        PixelmonPlus.getLogger().info(String.valueOf(dir));
+        io.github.stampede2011.pixelmonplus.PixelmonPlus.getLogger().info(String.valueOf(dir));
 
         ConfigManager.init();
     }
@@ -68,14 +66,14 @@ public class PixelmonPlus {
                 + "&c |  __/| |>  <  __/ | | | | | | (_) | | | &f|  __/| | |_| \\__ \\ \n"
                 + "&c |_|   |_/_/\\_\\___|_|_| |_| |_|\\___/|_| |_&f|_|   |_|\\__,_|___/ \n"
                 + "\n"
-                + "&b" + PixelmonPlus.NAME + " " + PixelmonPlus.VERSION + " has been enabled!\n"));
+                + "&b" + io.github.stampede2011.pixelmonplus.PixelmonPlus.NAME + " " + io.github.stampede2011.pixelmonplus.PixelmonPlus.VERSION + " has been enabled!\n"));
     }
 
     @Listener
     public void onReload(GameReloadEvent e) {
         ConfigManager.reload();
 
-        PixelmonPlus.getLogger().info("PixelmonPlus has been successfully reloaded!");
+        io.github.stampede2011.pixelmonplus.PixelmonPlus.getLogger().info("PixelmonPlus has been successfully reloaded!");
     }
 
     public static PixelmonPlus getInstance() {

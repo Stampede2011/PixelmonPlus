@@ -34,15 +34,15 @@ public class GiveCosmetic implements CommandExecutor {
                 PlayerStorage storage = PixelmonStorage.pokeBallManager.getPlayerStorage((EntityPlayerMP) player).orElse(null);
 
                 if (storage.cosmeticData.addCosmetic(CosmeticEntry.of(CosmeticCategory.valueOf(cosmetic.category), cosmetic.name, cosmetic.modelId, cosmetic.textureId))) {
-                    src.sendMessage(Utilities.toText("&aSuccessfully added cosmetic!"));
+                    src.sendMessage(Utilities.toText("&aSuccessfully gave &2" + player.getName() + " &athe cosmetic &4" + cosmeticID + "&c!"));
                 } else {
-                    src.sendMessage(Utilities.toText("&cError while adding cosmetic!"));
+                    src.sendMessage(Utilities.toText("&cError while attempting to give &4" + player.getName() + " &ccosmetic &4" + cosmeticID + "&c!"));
                 }
 
             }
 
         } else {
-            src.sendMessage(Utilities.toText("&cCould not find that Cosmetic!"));
+            src.sendMessage(Utilities.toText("&cCould not find the &4" + cosmeticID + " &ccosmetic!"));
         }
 
         return CommandResult.success();

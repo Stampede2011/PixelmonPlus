@@ -18,7 +18,7 @@ public class Reload implements CommandExecutor {
         ConfigManager.reload();
 
         PixelmonPlus.getLogger().info("PixelmonPlus has been successfully reloaded!");
-        src.sendMessage(Utilities.toText("&cPixelmonPlus has been successfully reloaded!"));
+        src.sendMessage(Utilities.toText("&aPixelmonPlus has been successfully reloaded!"));
 
         return CommandResult.success();
     }

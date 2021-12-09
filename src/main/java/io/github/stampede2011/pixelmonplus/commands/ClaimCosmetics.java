@@ -51,7 +51,7 @@ public class ClaimCosmetics implements CommandExecutor {
             }
 
             if (claimCount > 0) {
-                src.sendMessage(Utilities.toText("&aYou claimed &l" + claimCount + " &anew cosmetics!"));
+                src.sendMessage(Utilities.toText("&aYou claimed &4" + claimCount + " &anew cosmetics!"));
             } else {
                 src.sendMessage(Utilities.toText("&cNo new cosmetics have been claimed"));
             }

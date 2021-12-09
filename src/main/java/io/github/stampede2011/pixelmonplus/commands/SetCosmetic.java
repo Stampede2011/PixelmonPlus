@@ -35,11 +35,11 @@ public class SetCosmetic implements CommandExecutor {
 
                 storage.cosmeticData.setCosmetic(CosmeticEntry.of(CosmeticCategory.valueOf(cosmetic.category), cosmetic.name, cosmetic.modelId, cosmetic.textureId));
 
-                src.sendMessage(Utilities.toText("&aSet the requested Cosmetic!"));
+                src.sendMessage(Utilities.toText("&aSuccessfully set &2" + player.getName() + "'s &acosmetic to &2" + cosmeticID + "&a!"));
             }
 
         } else {
-            src.sendMessage(Utilities.toText("&cCould not find that Cosmetic!"));
+            src.sendMessage(Utilities.toText("&cCould not find the &4" + cosmeticID + " &ccosmetic!"));
         }
 
         return CommandResult.success();
