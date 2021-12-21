@@ -33,7 +33,7 @@ public class SetCosmetic implements CommandExecutor {
             if (cosmetic != null) {
                 PlayerStorage storage = PixelmonStorage.pokeBallManager.getPlayerStorage((EntityPlayerMP) player).orElse(null);
 
-                storage.cosmeticData.setCosmetic(CosmeticEntry.of(CosmeticCategory.valueOf(cosmetic.category), cosmetic.name, cosmetic.modelId, cosmetic.textureId));
+                storage.cosmeticData.setCosmetic(new CosmeticEntry(CosmeticCategory.valueOf(cosmetic.category), cosmetic.name, cosmetic.modelId, cosmetic.textureId));
 
                 src.sendMessage(Utilities.toText("&aSuccessfully set &2" + player.getName() + "'s &acosmetic to &2" + cosmeticID + "&a!"));
             }

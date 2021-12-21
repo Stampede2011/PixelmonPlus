@@ -22,7 +22,7 @@ public class ConfigManager {
     private static ConfigCapes capesConfig;
 
     public static void init() {
-        PixelmonPlus.getLogger().info(String.valueOf(plugin.dir));
+        PixelmonPlus.getLogger().info("Attempting to initialize the PixelmonPlus configuration files...");
         try {
             if(Files.notExists(Paths.get(plugin.dir + "/popups.conf")))
                 PixelmonPlus.getContainer().getAsset("popups.conf").get().copyToDirectory(plugin.dir.toPath());
@@ -60,7 +60,7 @@ public class ConfigManager {
     }
 
     public static void reload() {
-        load();
+        init();
     }
 
     public static ConfigPopups getPopupsConfig() {

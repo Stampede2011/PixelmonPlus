@@ -27,6 +27,9 @@ public class ConfigCosmetics {
         @Setting
         public String category;
 
+        @Setting
+        public boolean claimable;
+
     }
 
 }

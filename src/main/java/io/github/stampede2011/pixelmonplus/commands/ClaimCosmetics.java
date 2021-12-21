@@ -43,9 +43,11 @@ public class ClaimCosmetics implements CommandExecutor {
             }
 
             for (Map.Entry<String, ConfigCosmetics.Cosmetic> entry : ConfigManager.getCosmeticsConfig().cosmetics.entrySet()) {
-                if (src.hasPermission("pixelmonplus.cosmetic." + entry.getKey())) {
-                    if (storage.cosmeticData.addCosmetic(CosmeticEntry.of(CosmeticCategory.valueOf(entry.getValue().category), entry.getValue().name, entry.getValue().modelId, entry.getValue().textureId))) {
-                        claimCount++;
+                if (entry.getValue().claimable) {
+                    if (src.hasPermission("pixelmonplus.cosmetic." + entry.getKey())) {
+                        if (storage.cosmeticData.addCosmetic(new CosmeticEntry(CosmeticCategory.valueOf(entry.getValue().category), entry.getValue().name, entry.getValue().modelId, entry.getValue().textureId))) {
+                            claimCount++;
+                        }
                     }
                 }
             }
