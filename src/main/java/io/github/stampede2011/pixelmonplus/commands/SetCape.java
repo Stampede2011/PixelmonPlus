@@ -3,6 +3,8 @@ package io.github.stampede2011.pixelmonplus.commands;
 import com.pixelmongenerations.core.event.EntityPlayerExtension;
 import io.github.stampede2011.pixelmonplus.config.ConfigManager;
 import io.github.stampede2011.pixelmonplus.config.types.ConfigCapes;
+import io.github.stampede2011.pixelmonplus.storage.StorageData;
+import io.github.stampede2011.pixelmonplus.storage.StorageManager;
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.command.CommandException;
@@ -29,6 +31,7 @@ public class SetCape implements CommandExecutor {
 
             if (cape != null) {
                 EntityPlayerExtension.updatePlayerCape((EntityPlayerMP) player, cape.textureId);
+                StorageManager.setCape(player.getUniqueId(), capeID);
 
                 src.sendMessage(Utilities.toText("&aSuccessfully set &2" + player.getName() + "'s &acape to &2" + capeID + "&a!"));
             }

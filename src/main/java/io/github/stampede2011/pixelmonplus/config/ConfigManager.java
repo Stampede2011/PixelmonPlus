@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 public class ConfigManager {
 
-    private static final PixelmonPlus plugin = PixelmonPlus.getInstance();;
+    private static final PixelmonPlus plugin = PixelmonPlus.getInstance();
 
     private static ConfigPopups popupsConfig;
     private static ConfigCosmetics cosmeticsConfig;
@@ -42,6 +42,7 @@ public class ConfigManager {
     }
 
     public static void load() {
+        PixelmonPlus.getLogger().info("Attempting to load the PixelmonPlus configuration files...");
         try {
             popupsConfig = HoconConfigurationLoader.builder()
                     .setPath(Paths.get(plugin.dir + File.separator +  "popups.conf"))
@@ -61,6 +62,7 @@ public class ConfigManager {
 
     public static void reload() {
         init();
+
     }
 
     public static ConfigPopups getPopupsConfig() {

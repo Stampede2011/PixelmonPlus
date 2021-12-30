@@ -3,6 +3,7 @@ package io.github.stampede2011.pixelmonplus.commands;
 import com.pixelmongenerations.core.event.EntityPlayerExtension;
 import io.github.stampede2011.pixelmonplus.config.ConfigManager;
 import io.github.stampede2011.pixelmonplus.config.types.ConfigCapes;
+import io.github.stampede2011.pixelmonplus.storage.StorageManager;
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.command.CommandException;
@@ -23,6 +24,7 @@ public class ClearCape implements CommandExecutor {
         Player player = args.<Player>getOne(Text.of("player")).get();
 
         EntityPlayerExtension.updatePlayerCape((EntityPlayerMP) player, "");
+        StorageManager.removeCape(player.getUniqueId());
 
         src.sendMessage(Utilities.toText("&aSuccessfully cleared &2" + player.getName() + "'s &acape!"));
 

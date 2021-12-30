@@ -2,6 +2,7 @@ package io.github.stampede2011.pixelmonplus.commands;
 
 import io.github.stampede2011.pixelmonplus.PixelmonPlus;
 import io.github.stampede2011.pixelmonplus.config.ConfigManager;
+import io.github.stampede2011.pixelmonplus.storage.StorageManager;
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -16,6 +17,7 @@ public class Reload implements CommandExecutor {
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 
         ConfigManager.reload();
+        StorageManager.reload();
 
         PixelmonPlus.getLogger().info("PixelmonPlus has been successfully reloaded!");
         src.sendMessage(Utilities.toText("&aPixelmonPlus has been successfully reloaded!"));

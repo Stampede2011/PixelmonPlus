@@ -4,7 +4,11 @@ import com.google.inject.Inject;
 import io.github.stampede2011.pixelmonplus.commands.Base;
 import io.github.stampede2011.pixelmonplus.commands.ClaimCosmetics;
 import io.github.stampede2011.pixelmonplus.config.ConfigManager;
+import io.github.stampede2011.pixelmonplus.listeners.PlayerConnect;
+import io.github.stampede2011.pixelmonplus.storage.StorageManager;
+import io.github.stampede2011.pixelmonplus.utils.Placeholders;
 import io.github.stampede2011.pixelmonplus.utils.Utilities;
+import me.rojo8399.placeholderapi.Placeholder;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.ConfigDir;
@@ -23,7 +27,7 @@ import java.io.File;
         authors = io.github.stampede2011.pixelmonplus.PixelmonPlus.AUTHORS,
         description = io.github.stampede2011.pixelmonplus.PixelmonPlus.DESCRIPTION,
         version = io.github.stampede2011.pixelmonplus.PixelmonPlus.VERSION,
-        dependencies = {@Dependency(id = "pixelmon", optional = false)}
+        dependencies = {@Dependency(id = "pixelmon", optional = false), @Dependency(id = "placeholderapi", optional = true)}
 )
 public class PixelmonPlus {
 
@@ -31,7 +35,7 @@ public class PixelmonPlus {
     public static final String NAME = "PixelmonPlus";
     public static final String AUTHORS = "Stampede2011";
     public static final String DESCRIPTION = "Adds additional content to Pixelmon Generations!";
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.1.0";
 
     @Inject
     private Logger logger;
@@ -49,13 +53,17 @@ public class PixelmonPlus {
     public void onGamePreinit(GamePreInitializationEvent e) {
         instance = this;
 
-        io.github.stampede2011.pixelmonplus.PixelmonPlus.getLogger().info(String.valueOf(dir));
+        Sponge.getEventManager().registerListeners(this, new PlayerConnect());
 
         ConfigManager.init();
+        StorageManager.init();
     }
 
     @Listener
     public void onServerStarted(GameStartedServerEvent e) {
+        if (Sponge.getPluginManager().getPlugin("placeholderapi").isPresent())
+            Placeholders.init();
+
         Sponge.getCommandManager().register(instance, Base.build(), "pixelmonplus", "pixelplus", "pp");
         Sponge.getCommandManager().register(instance, ClaimCosmetics.build(), "claimcosmetics", "claimcos");
 
@@ -72,6 +80,7 @@ public class PixelmonPlus {
     @Listener
     public void onReload(GameReloadEvent e) {
         ConfigManager.reload();
+        StorageManager.reload();
 
         io.github.stampede2011.pixelmonplus.PixelmonPlus.getLogger().info("PixelmonPlus has been successfully reloaded!");
     }
