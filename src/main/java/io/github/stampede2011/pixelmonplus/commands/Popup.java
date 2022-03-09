@@ -40,7 +40,7 @@ public class Popup implements CommandExecutor {
                         popup.textureId,
                         popup.width,
                         popup.height,
-                        message.orElse(popup.text),
+                        message.orElse(popup.text).replace("&", "\u00a7"),
                         popup.textColor,
                         popup.textOutline,
                         popup.textOffsetX,
