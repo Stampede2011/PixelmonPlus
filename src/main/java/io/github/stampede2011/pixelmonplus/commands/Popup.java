@@ -48,10 +48,8 @@ public class Popup implements CommandExecutor {
                 ));
 
                 if (all.isPresent()) {
-                    for (Player p : Sponge.getServer().getOnlinePlayers()) {
-                        Pixelmon.NETWORK.sendTo(enqueuePopup, (EntityPlayerMP) p);
-                        src.sendMessage(Utilities.toText("&aSuccessfully sent the popup &2" + popupID + " &ato all online players!"));
-                    }
+                    Pixelmon.NETWORK.sendToAll(enqueuePopup);
+                    src.sendMessage(Utilities.toText("&aSuccessfully sent the popup &2" + popupID + " &ato all online players!"));
                 } else if (player.isPresent()) {
                     Pixelmon.NETWORK.sendTo(enqueuePopup, (EntityPlayerMP) player.get());
                     src.sendMessage(Utilities.toText("&aSuccessfully sent &2" + player.get().getName() + " &athe popup &2" + popupID + "&a!"));

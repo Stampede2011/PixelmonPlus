@@ -29,12 +29,13 @@ public class Base implements CommandExecutor {
         content.add(Utilities.toText("&c/&fpp popup <player|@a> <popup-id> [message]").toBuilder().onClick(TextActions.suggestCommand("/pp popup")).build());
         content.add(Utilities.toText("&c/&fpp setcape <player> <cape-id>").toBuilder().onClick(TextActions.suggestCommand("/pp setcape")).build());
         content.add(Utilities.toText("&c/&fpp clearcape <player>").toBuilder().onClick(TextActions.suggestCommand("/pp clearcape")).build());
+        content.add(Utilities.toText("&c/&fpp playsound <player|@a> <sound-id>").toBuilder().onClick(TextActions.suggestCommand("/pp playsound")).build());
 
         PaginationList.builder()
                 .title(Utilities.toText("&cPixelmon&fPlus"))
                 .padding(Utilities.toText("&8&m-&r"))
                 .contents(content)
-                .linesPerPage(10)
+                .linesPerPage(11)
                 .sendTo(src);
 
         return CommandResult.success();
@@ -52,6 +53,7 @@ public class Base implements CommandExecutor {
                 .child(ClearCosmetic.build(), "clearcosmetics", "clearcos")
                 .child(SetCape.build(), "setcape")
                 .child(ClearCape.build(), "clearcape")
+                .child(PlaySound.build(), "playsound")
                 .build();
     }
 
